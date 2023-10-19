@@ -4,14 +4,9 @@ from Grafo import *
 import random
 import graphviz
 
+# Grafo malla
 def grafoMalla(m, n, dirigido=False):
-    """
-    Genera grafo de malla
-    :param m: número de columnas (> 1)
-    :param n: número de filas (> 1)
-    :param dirigido: el grafo es dirigido?
-    :return: grafo generado
-    """
+   
     print("Generando grafo de malla con ")
 
     if m <= 1:
@@ -36,16 +31,9 @@ def grafoMalla(m, n, dirigido=False):
     return nuevo_grafo
 
 
-## Corregir repeticion de aristas
+# Grafo Erdos-Renyi
 def grafoErdosRenyi(n, m, dirigido=False, auto=False):
-    """
-    Genera grafo aleatorio con el modelo Erdos-Renyi
-    :param n: número de nodos (> 0)
-    :param m: número de aristas (>= n-1)
-    :param dirigido: el grafo es dirigido?
-    :param auto: permitir auto-ciclos?
-    :return: grafo generado
-    """
+   
     if n <= 0:
         n = 1
     if m < n-1:
@@ -78,15 +66,9 @@ def grafoErdosRenyi(n, m, dirigido=False, auto=False):
             nuevo_grafo.agregarArista(i,j)
     return nuevo_grafo
 
+# Grafo Gilbert
 def grafoGilbert(n, p, dirigido=False, auto=False):
-    """
-    Genera grafo aleatorio con el modelo Gilbert
-    :param n: número de nodos (> 0)
-    :param p: probabilidad de crear una arista (0, 1)
-    :param dirigido: el grafo es dirigido?
-    :param auto: permitir auto-ciclos?
-    :return: grafo generado
-    """
+   
     if n <= 0:
         n = 1
     if 0 > p and p < 1:
@@ -115,16 +97,9 @@ def grafoGilbert(n, p, dirigido=False, auto=False):
 
     return nuevo_grafo
 
+# Grafo Geografico Simple
 def grafoGeograficoSimple(n, r, dirigido=False, auto=False):
-    """
-    Genera grafo aleatorio con el modelo geográfico simple
-    :param n: número de nodos (> 0)
-    :param r: distancia máxima para crear un nodo (0, 1)
-    :param dirigido: el grafo es dirigido?
-    :param auto: permitir auto-ciclos?
-    :return: grafo generado
-    """
-
+  
     if n <= 0:
         n = 1
     if 0 > r and r < 1:
@@ -159,16 +134,9 @@ def grafoGeograficoSimple(n, r, dirigido=False, auto=False):
 
     return nuevo_grafo
 
+# Grafo Barabasi-Albert
 def grafoBarabasiAlbert(n, d, dirigido=False, auto=False):
-    """
-    Genera grafo aleatorio con el modelo Barabasi-Albert
-    :param n: número de nodos (> 0)
-    :param d: grado máximo esperado por cada nodo (> 1)
-    :param dirigido: el grafo es dirigido?
-    :param auto: permitir auto-ciclos?
-    :return: grafo generado
-    """
-
+  
     if n <= 0:
         n = 1
     if d <= 1:
@@ -201,14 +169,9 @@ def grafoBarabasiAlbert(n, d, dirigido=False, auto=False):
                     nuevo_grafo.agregarArista(i,j)
 
     return nuevo_grafo
-
+# Grafo Dorogovtsev-Mendes
 def grafoDorogovtsevMendes(n, dirigido=False):
-    """
-    Genera grafo aleatorio con el modelo Barabasi-Albert
-    :param n: número de nodos (≥ 3)
-    :param dirigido: el grafo es dirigido?
-    :return: grafo generado
-    """
+   
     if n < 3:
         n = 3
 
@@ -231,7 +194,7 @@ def grafoDorogovtsevMendes(n, dirigido=False):
 
     return nuevo_grafo
 
-
+#funcion para generar png
 def generarPng( archivo, nombre_archivo_salida):
     dot = None
     with open(archivo) as f:
@@ -239,29 +202,30 @@ def generarPng( archivo, nombre_archivo_salida):
 
     s = graphviz.Source(dot, filename=nombre_archivo_salida, format='png')
     s.view()
-
+#esta es la parte que se cambia apra poder generar los demas grafos
 g = grafoMalla(10,3, False)
 g.guardar("g.dot", shape="circle", layout="fdp")
 
+#manda a llamar a la funcion para generar el png
 generarPng("g.dot", "g")
 
-"""
 
-g = grafoMalla(5,3, True)
-g.guardar("g.dot")
+#sustituye las 2 lineas para generar el grafo deseado 
 
-g2 = grafoErdosRenyi(100,2000, False, False)
-g2.guardar("g2.dot")
+# g = grafoMalla(5,3, True)
+# g.guardar("g.dot")
 
-g3 = grafoGilbert(20, 0.2, dirigido=True, auto=False)
-g3.guardar("g3.dot")
+# g = grafoErdosRenyi(100,2000, False, False)
+# g.guardar("g.dot")
 
-g4 = grafoGeograficoSimple(200, 0.2, dirigido=True, auto=False)
-g4.guardar("g4.dot")
+# g = grafoGilbert(20, 0.2, dirigido=True, auto=False)
+# g.guardar("g.dot")
 
-g5 = grafoBarabasiAlbert(100, 4, False, False)
-g5.guardar("g5.dot")
+# g = grafoGeograficoSimple(200, 0.2, dirigido=True, auto=False)
+# g.guardar("g.dot")
 
-g6 = grafoDorogovtsevMendes(100, False)
-g6.guardar("g6.dot")
-"""
+# g = grafoBarabasiAlbert(100, 4, False, False)
+# g.guardar("g.dot")
+
+# g6 = grafoDorogovtsevMendes(100, False)
+# g6.guardar("g6.dot")
